@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <title>Users : View all</title>
+</head>
+<body>
+<h1 layout:fragment="header">Posts: View all</h1>
+<div layout:fragment="content" class="container">
+    <div class="pull-right">
+        <a href="newPost.html" th:href="@{/post/create}">Post new</a>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <td>Title</td>
+            <td>Poster</td>
+            <td>Created</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${posts.empty}">
+            <td colspan="3">No posts</td>
+        </tr>
+        <tr th:each="post : ${posts}">
+            <td><a th:text="${post.title}" th:href="@{/post/{id}(id=${post.externalId})}" href="post.html"></a></td>
+            <td><span th:text="${post.author}"></span></td>
+            <td><span th:text="${post.formattedTime}"></span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

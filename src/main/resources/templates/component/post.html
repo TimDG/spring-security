@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <title th:text="${post.title + ' - ' + post.author}"> </title>
+</head>
+<body>
+<h1 layout:fragment="header" th:text="${post.title}"> </h1>
+<div layout:fragment="content" class="container">
+    <h2 th:text="${'By ' + post.author}"> </h2>
+    <h6 th:text="${'At ' + post.formattedTime}"></h6>
+    <div th:text="${post.content}">
+
+    </div>
+    <div class="pull-right">
+        <form th:action="@{/post/delete}" class="form-horizontal" method="post" th:object="${post}">
+            <div class="form-group">
+                <input type="hidden" name="externalId" th:value="*{externalId}"/>
+                <button class="glyphicon glyphicon-pencil btn btn-primary" th:formaction="@{/post/{externalId}/edit(externalId=${post.externalId})}" type="submit"></button>
+                <button class="glyphicon glyphicon-trash btn btn-danger" th:formaction="@{/post/delete}" type="submit"></button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

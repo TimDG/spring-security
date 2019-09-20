@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Edit post</title>
+</head>
+<body>
+<h1 layout:fragment="header">Edit post </h1>
+<div layout:fragment="content" class="container">
+
+    <form id="postForm" th:action="@{/post/{externalId}/update(externalId=${post.externalId})}" th:object="${post}" method="post" class="form-horizontal">
+        <input type="hidden" th:field="*{externalId}">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="title">Title</label>
+            <div class="col-sm-10">
+                <input id="title" type="text" title="title" th:field="*{title}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="author">Author</label>
+            <div class="col-sm-10">
+                <input id="author" type="text" title="author" th:field="*{author}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="content">Content</label>
+            <div class="col-sm-10">
+                <textarea id="content" name="content" th:field="*{content}" class="form-control" rows="20"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="author">Deleted</label>
+            <div class="col-sm-10">
+                <input id="deleted" type="checkbox" title="deleted" th:field="*{deleted}"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-actions col-sm-offset-2 col-sm-10">
+                <input type="submit" class="btn btn-primary" value="Update" />
+            </div>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>
