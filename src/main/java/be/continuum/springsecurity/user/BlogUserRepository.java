@@ -7,4 +7,6 @@ import java.util.Optional;
 public interface BlogUserRepository extends JpaRepository<BlogUser, Long> {
 
     Optional<BlogUser> findByEmail(String email);
+
+    boolean existsByEmail(String email);
 }
