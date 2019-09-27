@@ -1,6 +1,8 @@
 package be.continuum.springsecurity.user;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -19,6 +21,8 @@ public class BlogUser implements UserDetails {
 
     private String name;
     private String email;
+
+    @Setter(AccessLevel.PACKAGE)
     private String password;
 
     @Override
