@@ -1,6 +1,7 @@
 package be.continuum.springsecurity.user;
 
 import be.continuum.springsecurity.register.RegistrationUser;
+import be.continuum.springsecurity.role.BlogRoleService;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,10 +17,12 @@ import java.util.Optional;
 public class BlogUserDetailService implements UserDetailsService {
 
     private final BlogUserRepository repository;
+    private final BlogRoleService roleService;
     private final PasswordEncoder passwordEncoder;
 
-    public BlogUserDetailService(BlogUserRepository repository, PasswordEncoder passwordEncoder) {
+    public BlogUserDetailService(BlogUserRepository repository, BlogRoleService roleService, PasswordEncoder passwordEncoder) {
         this.repository = repository;
+        this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -44,6 +47,7 @@ public class BlogUserDetailService implements UserDetailsService {
         blogUser.setEmail(user.getEmail());
         blogUser.setName(user.getName());
         blogUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        blogUser.addRole(roleService.getReader());
 
         repository.save(blogUser);
     }

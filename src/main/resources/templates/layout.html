@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Layout</title>
 
@@ -16,16 +17,20 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a th:href="@{/deleted}" href="component/posts.html">Deleted posts</a></li>
+                    <li sec:authorize="hasAuthority('EDITOR')"><a th:href="@{/deleted}" href="component/posts.html">Deleted posts</a></li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
-                    <li><a th:href="@{/register}">Register</a></li>
-                    <li>
+                    <li sec:authorize="isAnonymous()"><a th:href="@{/login}">Log in</a></li>
+                    <li sec:authorize="isAnonymous()"><a th:href="@{/register}">Register</a></li>
+                    <li sec:authorize="isAuthenticated()">
                         <form th:action="@{/logout}" method="post">
                             <button type="submit" class="btn btn-link navbar-btn">Log out</button>
                         </form>
                     </li>
                 </ul>
+                <p class="navbar-text pull-right" sec:authorize="isAuthenticated()">
+                    Welcome, <span sec:authentication="principal.name"> </span>
+                </p>
             </div>
         </div>
     </nav>

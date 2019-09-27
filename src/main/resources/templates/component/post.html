@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" layout:decorate="~{layout}">
 <head>
     <title th:text="${post.title + ' - ' + post.author}"> </title>
 </head>
@@ -11,7 +12,7 @@
     <div th:text="${post.content}">
 
     </div>
-    <div class="pull-right">
+    <div class="pull-right" sec:authorize="hasAuthority('EDITOR')">
         <form th:action="@{/post/delete}" class="form-horizontal" method="post" th:object="${post}">
             <div class="form-group">
                 <input type="hidden" name="externalId" th:value="*{externalId}"/>

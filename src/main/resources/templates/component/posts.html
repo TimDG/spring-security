@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" layout:decorate="~{layout}">
 <head>
     <title>Users : View all</title>
 </head>
 <body>
 <h1 layout:fragment="header">Posts: View all</h1>
 <div layout:fragment="content" class="container">
-    <div class="pull-right">
+    <div class="pull-right" sec:authorize="hasAuthority('WRITER')">
         <a href="newPost.html" th:href="@{/post/create}">Post new</a>
     </div>
     <table class="table table-bordered table-striped">
@@ -22,7 +23,10 @@
             <td colspan="3">No posts</td>
         </tr>
         <tr th:each="post : ${posts}">
-            <td><a th:text="${post.title}" th:href="@{/post/{id}(id=${post.externalId})}" href="post.html"></a></td>
+            <td>
+                <a th:text="${post.title}" th:href="@{/post/{id}(id=${post.externalId})}" href="post.html" sec:authorize="isAuthenticated()"></a>
+                <span th:text="${post.title}" sec:authorize="isAnonymous()"></span>
+            </td>
             <td><span th:text="${post.author}"></span></td>
             <td><span th:text="${post.formattedTime}"></span></td>
         </tr>

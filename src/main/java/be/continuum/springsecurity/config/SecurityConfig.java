@@ -8,6 +8,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import static be.continuum.springsecurity.role.Roles.EDITOR;
+import static be.continuum.springsecurity.role.Roles.WRITER;
+
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -30,6 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/", "/register").permitAll()
                 .antMatchers("/register", "/lostPassword", "/lostPassword/reset").anonymous()
+                .antMatchers("/post/create").hasAuthority(WRITER.name())
+                .antMatchers("/post/**/edit", "/post/**/update", "/post/delete", "/deleted").hasAuthority(EDITOR.name())
                 .antMatchers("/**").fullyAuthenticated()
         .and()
                 .formLogin()
