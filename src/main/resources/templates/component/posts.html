@@ -7,7 +7,7 @@
 <body>
 <h1 layout:fragment="header">Posts: View all</h1>
 <div layout:fragment="content" class="container">
-    <div class="pull-right" sec:authorize="hasAuthority('WRITER')">
+    <div class="pull-right" sec:authorize-url="/post/create">
         <a href="newPost.html" th:href="@{/post/create}">Post new</a>
     </div>
     <table class="table table-bordered table-striped">

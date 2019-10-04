@@ -17,7 +17,7 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li sec:authorize="hasAuthority('EDITOR')"><a th:href="@{/deleted}" href="component/posts.html">Deleted posts</a></li>
+                    <li sec:authorize-url="/deleted"><a th:href="@{/deleted}" href="component/posts.html">Deleted posts</a></li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
                     <li sec:authorize="isAnonymous()"><a th:href="@{/login}">Log in</a></li>

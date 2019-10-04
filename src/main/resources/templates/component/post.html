@@ -12,7 +12,8 @@
     <div th:text="${post.content}">
 
     </div>
-    <div class="pull-right" sec:authorize="hasAuthority('EDITOR')">
+
+    <div class="pull-right" sec:authorize-url="POST /post/delete">
         <form th:action="@{/post/delete}" class="form-horizontal" method="post" th:object="${post}">
             <div class="form-group">
                 <input type="hidden" name="externalId" th:value="*{externalId}"/>
